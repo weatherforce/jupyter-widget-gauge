@@ -1,6 +1,11 @@
 var widgets = require('@jupyter-widgets/base');
 var _ = require('lodash');
+let React = require('react');
+let ReactDOM = require('react-dom');
+let GaugeChart =require('react-gauge-chart').default;
 
+console.log("here is the gaugechart variable")
+console.log(GaugeChart)
 // See example.py for the kernel counterpart to this file.
 
 
@@ -44,7 +49,12 @@ var GaugeWidgetView = widgets.DOMWidgetView.extend({
     },
 
     value_changed: function() {
-        this.el.textContent = this.model.get('value');
+		let gauge_container = document.createElement('div')
+		ReactDOM.render(React.createElement(GaugeChart, {id:"gaugechart1"}), gauge_container)
+		let text = document.createElement('p')
+		text.textContent = this.model.get('value')
+		this.el.appendChild(gauge_container)
+        this.el.appendChild(text);
     }
 });
 
