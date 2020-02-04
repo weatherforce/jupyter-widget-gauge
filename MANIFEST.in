@@ -1,0 +1,2 @@
+recursive-include jupyter_widget_gauge/static *.*
+include jupyter-widget-gauge.json
