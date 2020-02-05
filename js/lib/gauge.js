@@ -4,11 +4,6 @@ let React = require('react');
 let ReactDOM = require('react-dom');
 let GaugeChart =require('react-gauge-chart').default;
 
-console.log("here is the gaugechart variable")
-console.log(GaugeChart)
-// See example.py for the kernel counterpart to this file.
-
-
 // Custom Model. Custom widgets models must at least provide default values
 // for model attributes, including
 //
@@ -39,9 +34,15 @@ var GaugeWidgetModel = widgets.DOMWidgetModel.extend({
 
 // Custom View. Renders the widget model.
 var GaugeWidgetView = widgets.DOMWidgetView.extend({
+	initiation: function(){
+		this.gauge_container = document.createElement('div')
+		this.gaugeElement = React.createElement(GaugeChart, this.model.get('props'))
+		ReactDOM.render(this.gaugeElement, this.gauge_container)
+		this.el.appendChild(this.gauge_container)
+	},
     // Defines how the widget gets rendered into the DOM
     render: function() {
-		this.props_changed();
+		this.initiation();
 		this.indicator_changed();
 		this.stade_changed();
         // Observe changes in the value traitlet in Python, and define
@@ -53,10 +54,11 @@ var GaugeWidgetView = widgets.DOMWidgetView.extend({
     },
 
 	props_changed: function(){
-		let gauge_container = document.createElement('div')
-		ReactDOM.render(React.createElement(GaugeChart, this.model.get('props')), gauge_container)
-		this.el.appendChild(gauge_container)
+		this.gaugeElement = React.createElement(GaugeChart, this.model.get('props'))
+		console.log(this.gaugeElement)
+		ReactDOM.render(this.gaugeElement, this.gauge_container)
 	},
+
 	indicator_changed: function(){
 		let indicator_container = document.createElement('p')
 		let value = this.model.get('indicator')

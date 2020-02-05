@@ -43,5 +43,11 @@ class GaugeWidget(widgets.DOMWidget):
         self.indicator = indicator
         self.stade = stade
 
+    @property
+    def percent(self):
+        return self.props['percent']
+
+    @percent.setter
     def percent(self, percent):
         self.props['percent'] = percent
+        self.send_state()
