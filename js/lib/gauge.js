@@ -32,7 +32,7 @@ var GaugeWidgetModel = widgets.DOMWidgetModel.extend({
         _view_module : 'jupyter-widget-gauge',
         _model_module_version : '0.1.0',
         _view_module_version : '0.1.0',
-        value : 'GaugeWidget World!I am a gauge!!!'
+		props: {}
     })
 });
 
@@ -41,21 +41,18 @@ var GaugeWidgetModel = widgets.DOMWidgetModel.extend({
 var GaugeWidgetView = widgets.DOMWidgetView.extend({
     // Defines how the widget gets rendered into the DOM
     render: function() {
-        this.value_changed();
-
+		this.props_changed();
         // Observe changes in the value traitlet in Python, and define
         // a custom callback.
-        this.model.on('change:value', this.value_changed, this);
+		this.model.on('change:props', this.props_changed, this);
     },
 
-    value_changed: function() {
+	props_changed: function(){
+		console.log(this.model.get('props'));
 		let gauge_container = document.createElement('div')
-		ReactDOM.render(React.createElement(GaugeChart, {id:"gaugechart1"}), gauge_container)
-		let text = document.createElement('p')
-		text.textContent = this.model.get('value')
+		ReactDOM.render(React.createElement(GaugeChart, this.model.get('props')), gauge_container)
 		this.el.appendChild(gauge_container)
-        this.el.appendChild(text);
-    }
+	}
 });
 
 

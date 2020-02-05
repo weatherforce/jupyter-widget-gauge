@@ -1,5 +1,5 @@
 import ipywidgets as widgets
-from traitlets import Unicode
+from traitlets import Unicode, Dict
 
 
 @widgets.register
@@ -29,4 +29,15 @@ class GaugeWidget(widgets.DOMWidget):
     # in Python.
     # It is synced back to Python from the frontend *any* time the model is
     # touched.
-    value = Unicode('GaugeWidget ! I am a Gauge').tag(sync=True)
+    props = Dict(default_value={
+       "nrOfLevels": 3,
+       "percent": 0,
+       "id": "gaugechart1"
+    }).tag(sync=True)
+
+    def __init__(self, props, **kwargs):
+        super().__init__(**kwargs)
+        self.props = props
+
+    def percent(self, percent):
+        self.props['percent'] = percent
