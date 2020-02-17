@@ -1,5 +1,5 @@
 import ipywidgets as widgets
-from traitlets import Unicode, Dict, Int
+from traitlets import Unicode, Dict
 
 
 @widgets.register
@@ -34,7 +34,6 @@ class GaugeWidget(widgets.DOMWidget):
        "percent": 0,
        "id": "gaugechart1"
     }).tag(sync=True)
-    indicator = Int(0).tag(sync=True)
     stade = Unicode('stade test').tag(sync=True)
 
     def __init__(self, props, indicator=100, stade="test stade", **kwargs):
