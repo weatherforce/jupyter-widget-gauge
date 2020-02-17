@@ -36,10 +36,9 @@ class GaugeWidget(widgets.DOMWidget):
     }).tag(sync=True)
     stade = Unicode('stade test').tag(sync=True)
 
-    def __init__(self, props, indicator=100, stade="test stade", **kwargs):
+    def __init__(self, props, stade="test stade", **kwargs):
         super().__init__(**kwargs)
         self.props = props
-        self.indicator = indicator
         self.stade = stade
 
     @property
