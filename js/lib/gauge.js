@@ -43,11 +43,9 @@ var GaugeWidgetView = widgets.DOMWidgetView.extend({
     // Defines how the widget gets rendered into the DOM
     render: function() {
 		this.initiation();
-		this.stade_changed();
         // Observe changes in the value traitlet in Python, and define
         // a custom callback.
 		this.model.on('change:props', this.props_changed, this);
-		this.model.on('change:stade', this.stade_changed, this);
 		
     },
 
@@ -56,14 +54,6 @@ var GaugeWidgetView = widgets.DOMWidgetView.extend({
 		console.log(this.gaugeElement)
 		ReactDOM.render(this.gaugeElement, this.gauge_container)
 	},
-
-	
-	stade_changed: function(){
-		let stade_container = document.createElement('p')
-		stade_container.style ="text-align: center; font-size: 18px"
-		stade_container.textContent = this.model.get('stade')
-		this.el.appendChild(stade_container)
-	}
 });
 
 
