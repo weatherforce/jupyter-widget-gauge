@@ -4,7 +4,10 @@ from traitlets import Unicode, Dict
 
 @widgets.register
 class GaugeWidget(widgets.DOMWidget):
-    """An example widget."""
+    """Gauge Widget
+
+    An ipywidget implementation of react-gauge-chart for jupyter.
+    """
 
     # Name of the widget view class in front-end
     _view_name = Unicode('GaugeWidgetView').tag(sync=True)
@@ -29,23 +32,37 @@ class GaugeWidget(widgets.DOMWidget):
     # in Python.
     # It is synced back to Python from the frontend *any* time the model is
     # touched.
+
     props = Dict(default_value={
        "nrOfLevels": 3,
        "percent": 0,
        "id": "gaugechart1"
     }).tag(sync=True)
-    stade = Unicode('stade test').tag(sync=True)
+    stage = Unicode('stage test').tag(sync=True)
 
-    def __init__(self, props, stade="test stade", **kwargs):
+    def __init__(self, props,  **kwargs):
+        """__init__
+
+        :param props: the props to be passed to the react gauge component
+        """
         super().__init__(**kwargs)
         self.props = props
-        self.stade = stade
 
     @property
     def percent(self):
+        """percent
+        a getter on the gauge percent value
+        """
         return self.props['percent']
 
     @percent.setter
     def percent(self, percent):
+        """percent
+
+        allow to set gauge percent value
+
+        :param percent: gauge percent value
+        :type percent: float
+        """
         self.props['percent'] = percent
         self.send_state()
